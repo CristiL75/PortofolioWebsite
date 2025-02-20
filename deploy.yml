@@ -1,0 +1,38 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Folosește branch-ul principal al repository-ului tău (poate fi "master")
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    # 2. Set up Node.js (pentru un site generat cu un framework JS sau un generator de site-uri)
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    
+    # 3. Instalează dependențele (dacă ai un proiect cu Node.js sau un generator de site-uri)
+    - name: Install dependencies
+      run: npm install
+    
+    # 4. Construiește site-ul (dacă folosești un generator static, ca Hugo, Jekyll, Gatsby etc.)
+    - name: Build the site
+      run: npm run build  # Aici, comanda depinde de proiectul tău (ex. `hugo`, `jekyll build`, etc.)
+    
+    # 5. Deploy pe GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4.1.0
+      with:
+        branch: gh-pages  # Branch-ul de publicare
+        folder: build     # Directorul în care se află fișierele generate (pentru un site generat, cum ar fi dist sau public)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
