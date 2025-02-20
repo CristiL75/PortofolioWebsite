@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Numele exact al repository-ului tău
+  base: '/PortofolioWebsite', // Numele exact al repository-ului tău
 });
